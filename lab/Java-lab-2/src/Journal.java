@@ -1,7 +1,7 @@
 import java.util.*;
 import java.text.*;
 
-// Сутність "Запис в журналі куратора"
+
 class JournalEntry {
     private String surname;
     private String name;
@@ -31,7 +31,7 @@ class JournalEntry {
     }
 }
 
-// Утиліти для перевірки правильності введення
+// Перевірка правильності введення
 class Validator {
     public static boolean isNameValid(String s) {
         return s.matches("[А-Яа-яA-Za-z'ійє\\-]+");
@@ -50,7 +50,6 @@ class Validator {
         return parseDate(s) != null;
     }
 
-
     public static boolean isPhoneValid(String s) {
         return s.matches("\\+\\d{7,15}"); // тільки цифри, довжина 7-15
     }
@@ -68,7 +67,7 @@ class Validator {
         }
     }
 }
-    // Основний застосунок
+    // Основна програма
     public class Journal {
         private static Scanner sc = new Scanner(System.in);
         private static List<JournalEntry> journal = new ArrayList<>();
@@ -111,7 +110,7 @@ class Validator {
 
             JournalEntry entry = new JournalEntry(surname, name, birthDate, phone, street, house, flat);
             journal.add(entry);
-            System.out.println("✅ Запис успішно додано!");
+            System.out.println(" Запис успішно додано!");
         }
 
         // Виведення всіх записів
@@ -126,14 +125,14 @@ class Validator {
             }
         }
 
-        // Загальна функція для циклічного введення до коректного значення
+        // Функція для циклічного введення при неправильному вводі
         private static String inputUntilValid(String prompt, java.util.function.Predicate<String> validator) {
             String input;
             do {
                 System.out.print(prompt);
                 input = sc.nextLine();
                 if (!validator.test(input)) {
-                    System.out.println("❌ Невірний ввід, спробуйте ще раз.");
+                    System.out.println("Невірний ввід, спробуйте ще раз.");
                 }
             } while (!validator.test(input));
             return input;
