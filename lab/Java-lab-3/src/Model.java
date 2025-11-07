@@ -1,6 +1,12 @@
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.IOException;
+import java.util.Collections;
 
 public class Model {
     List<Shape> ShapeList;
@@ -59,4 +65,24 @@ public class Model {
             return i.shapeColor.compareTo(j.shapeColor);
         }
     };
+
+    void saveToFile(String path) throws IOException {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) {
+            oos.writeObject(ShapeList); // Shape implements Serializable — все ок
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    void loadFromFile(String path) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))) {
+            Object obj = ois.readObject();
+            ShapeList.clear();
+            ShapeList.addAll((List<Shape>) obj);
+        }
+    }
+
+    List<Shape> getShapes() {
+        return Collections.unmodifiableList(ShapeList);
+    }
+
 }

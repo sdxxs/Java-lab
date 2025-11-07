@@ -26,4 +26,23 @@ public class Controller {
     void SumOfClass(Class ChosenClass){
         view.Write(view.SumOfClass + ChosenClass.getName() + "рівна " + model.SumOfClass(ChosenClass));
     }
+
+    void Save(String path) {
+        try {
+            model.saveToFile(path);
+            view.Write("Збережено у файл: " + path);
+        } catch (Exception e) {
+            view.Write("Помилка збереження: " + e.getMessage());
+        }
+    }
+
+    void Load(String path) {
+        try {
+            model.loadFromFile(path);
+            view.Write("Завантажено з файлу: " + path);
+        } catch (Exception e) {
+            view.Write("Помилка читання: " + e.getMessage());
+        }
+    }
+
 }
